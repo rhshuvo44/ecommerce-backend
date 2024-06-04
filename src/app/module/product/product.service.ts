@@ -11,6 +11,11 @@ const getAllProduct = async () => {
     const result = await Product.find();
     return result
 }
+//get a single products from the database
+const getSingleProduct = async (id: string) => {
+    const result = await Product.find({ _id: id });
+    return result
+}
 
 
 
@@ -23,4 +28,7 @@ const getAllProduct = async () => {
 
 
 
-export const productService = { createProduct,getAllProduct }
+export const productService = {
+    createProduct, getAllProduct,
+    getSingleProduct
+}
