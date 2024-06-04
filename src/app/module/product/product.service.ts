@@ -13,7 +13,12 @@ const getAllProduct = async () => {
 }
 //get a single products from the database
 const getSingleProduct = async (id: string) => {
-    const result = await Product.find({ _id: id });
+    const result = await Product.findById({ _id: id });
+    return result
+}
+//delete a single products from the database
+const deleteProduct = async (id: string) => {
+    const result = await Product.deleteOne({ _id: id });
     return result
 }
 
@@ -21,14 +26,7 @@ const getSingleProduct = async (id: string) => {
 
 
 
-
-
-
-
-
-
-
 export const productService = {
     createProduct, getAllProduct,
-    getSingleProduct
+    getSingleProduct, deleteProduct
 }
