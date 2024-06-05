@@ -4,7 +4,7 @@ import { Order } from "./order.model";
 
 // create a new Order
 const orderCreate = async (orderData: TOrders) => {
-    const productFind = await Product.findById( orderData.productId )
+    const productFind = await Product.findById(orderData.productId)
     if (!productFind) {
         return {
             data: null,
@@ -18,9 +18,14 @@ const orderCreate = async (orderData: TOrders) => {
         }
     }
 }
+// getAllOrder
+const getAllOrder = async () => {
+    const result = await Order.find()
+    return result
+}
 
 
 
 export const orderService = {
-    orderCreate
+    orderCreate, getAllOrder
 }
