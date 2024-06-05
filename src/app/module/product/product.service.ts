@@ -8,11 +8,9 @@ const createProduct = async (product: TProduct) => {
 };
 //get all products from the database
 const getAllProduct = async (searchTerm: string | undefined) => {
-
-
   if (searchTerm) {
-    const result = await Product.findOne({ name: searchTerm })
-   
+    const result = await Product.findOne({ name: searchTerm });
+
     // const result = await Product.find({ $in: [{ $name: searchTerm }] });
     // // Filter products based on search term
     // // result = Product.filter(product =>
@@ -21,15 +19,14 @@ const getAllProduct = async (searchTerm: string | undefined) => {
     // result = Product.findIndex(product => console.log(product))
     return {
       result,
-      message: `Products matching search term '${searchTerm}' fetched successfully!`
-    }
-
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+    };
   } else {
     const result = await Product.find();
     return {
       result,
-      message: "Products fetched successfully!"
-    }
+      message: 'Products fetched successfully!',
+    };
   }
 };
 //get a single products from the database
@@ -38,17 +35,24 @@ const getSingleProduct = async (id: string) => {
   return result;
 };
 //get a single products from the database
-const updateSingleProduct = async (id: string, updatedProductData: TProduct) => {
-  const findProduct = await Product.findById({ _id: id })
+const updateSingleProduct = async (
+  id: string,
+  updatedProductData: TProduct,
+) => {
+  const findProduct = await Product.findById({ _id: id });
 
   if (!findProduct) {
     return { data: null, message: `Product with ID ${id} not found` };
   } else {
-    const updatedProduct = await Product.findByIdAndUpdate(id, updatedProductData, { new: true });
+    const updatedProduct = await Product.findByIdAndUpdate(
+      id,
+      updatedProductData,
+      { new: true },
+    );
     return {
       data: updatedProduct,
-      message: `Product updated successfully!`
-    }
+      message: `Product updated successfully!`,
+    };
   }
 };
 //delete a single products from the database
@@ -62,5 +66,5 @@ export const productService = {
   getAllProduct,
   getSingleProduct,
   deleteProduct,
-  updateSingleProduct
+  updateSingleProduct,
 };

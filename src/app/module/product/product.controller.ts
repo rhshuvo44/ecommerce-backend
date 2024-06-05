@@ -6,7 +6,7 @@ import { ProductValidationSchema } from './product.validation';
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product = req.body;
-    const zodData = ProductValidationSchema.parse(product)
+    const zodData = ProductValidationSchema.parse(product);
     const data = await productService.createProduct(zodData);
     res.status(200).json({
       success: true,
@@ -66,8 +66,11 @@ const updateSingleProduct = async (req: Request, res: Response) => {
   try {
     const productId = req.params.productId;
     const updatedProductData = req.body;
-    const zodValidateData = ProductValidationSchema.parse(updatedProductData)
-    const { message, data } = await productService.updateSingleProduct(productId, zodValidateData)
+    const zodValidateData = ProductValidationSchema.parse(updatedProductData);
+    const { message, data } = await productService.updateSingleProduct(
+      productId,
+      zodValidateData,
+    );
     res.status(200).json({ success: true, message, data });
   } catch (error: any) {
     res.status(404).json({
@@ -102,5 +105,5 @@ export const productController = {
   getAllProduct,
   getSingleProduct,
   deleteProduct,
-  updateSingleProduct
+  updateSingleProduct,
 };
