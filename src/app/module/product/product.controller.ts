@@ -25,11 +25,13 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getAllProduct = async (req: Request, res: Response) => {
   try {
-    const data = await productService.getAllProduct();
+    const searchTerm = req?.query?.searchTerm as string | undefined;
+
+    const { result, message } = await productService.getAllProduct(searchTerm);
     res.status(200).json({
       success: true,
-      message: 'Products fetched successfully!',
-      data,
+      message,
+      data: result,
     });
   } catch (error: any) {
     res.status(404).json({
@@ -50,6 +52,23 @@ const getSingleProduct = async (req: Request, res: Response) => {
       message: 'Product fetched successfully!',
       data,
     });
+  } catch (error: any) {
+    res.status(404).json({
+      success: false,
+      message: error.message,
+      data: null,
+    });
+  }
+};
+// get single products from the database
+
+const updateSingleProduct = async (req: Request, res: Response) => {
+  try {
+    const productId = req.params.productId;
+    const updatedProductData = req.body;
+    const zodValidateData = ProductValidationSchema.parse(updatedProductData)
+    const { message, data } = await productService.updateSingleProduct(productId, zodValidateData)
+    res.status(200).json({ success: true, message, data });
   } catch (error: any) {
     res.status(404).json({
       success: false,
@@ -83,4 +102,5 @@ export const productController = {
   getAllProduct,
   getSingleProduct,
   deleteProduct,
+  updateSingleProduct
 };
