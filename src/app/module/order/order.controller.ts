@@ -6,7 +6,8 @@ const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
     const zodValidationData = OrderValidationSchema.parse(orderData);
-    const { data, message, success } = await orderService.orderCreate(zodValidationData);
+    const { data, message, success } =
+      await orderService.orderCreate(zodValidationData);
     if (success === false) {
       res.status(404).json({
         success,
@@ -29,19 +30,19 @@ const createOrder = async (req: Request, res: Response) => {
 };
 const getAllOrder = async (req: Request, res: Response) => {
   try {
-    const email = req?.query?.email as string | undefined
+    const email = req?.query?.email as string | undefined;
     const { data, message } = await orderService.getAllOrder(email);
     if (data.length <= 0) {
       res.status(200).json({
         success: false,
         message: 'Order not found',
-        data
+        data,
       });
     } else {
       res.status(200).json({
         success: true,
         message,
-        data
+        data,
       });
     }
   } catch (error: any) {

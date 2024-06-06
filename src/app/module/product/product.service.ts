@@ -8,9 +8,10 @@ const createProduct = async (product: TProduct) => {
 };
 //get all products from the database
 const getAllProduct = async (searchTerm: string | undefined) => {
-
   if (searchTerm) {
-    const result = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
+    const result = await Product.find({
+      name: { $regex: searchTerm, $options: 'i' },
+    });
     return {
       result,
       message: `Products matching search term '${searchTerm}' fetched successfully!`,

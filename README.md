@@ -15,7 +15,7 @@ npm install
 
 # Copy the example .env file
 
-cp .env.example .env
+.env.example .env
 
 # Run the app
 

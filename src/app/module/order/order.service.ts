@@ -4,7 +4,6 @@ import { Order } from './order.model';
 
 // create a new Order
 const orderCreate = async (orderData: TOrders) => {
-
   const product = await Product.findById(orderData.productId);
 
   if (!product) {
@@ -32,8 +31,6 @@ const orderCreate = async (orderData: TOrders) => {
     data: newOrder,
     message: 'Order created successfully!',
   };
-
-
 };
 // getAllOrder
 const getAllOrder = async (email: string | undefined) => {
@@ -42,15 +39,13 @@ const getAllOrder = async (email: string | undefined) => {
     return {
       data: result,
       message: 'Orders fetched successfully for user email!',
-    }
-
+    };
   } else {
     const result = await Order.find();
     return {
       data: result,
       message: 'Orders fetched successfully!',
-    }
-
+    };
   }
 };
 

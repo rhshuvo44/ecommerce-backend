@@ -6,10 +6,10 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cors());
-// app route 
+// app route
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
-// root route 
+// root route
 app.get('/', (req: Request, res: Response) => {
   res.send('Asserment 2 E-commerce Backend Server');
 });
@@ -17,7 +17,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: "Route not found"
+    message: 'Route not found',
   });
 });
 export default app;
