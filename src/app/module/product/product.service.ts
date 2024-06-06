@@ -8,15 +8,9 @@ const createProduct = async (product: TProduct) => {
 };
 //get all products from the database
 const getAllProduct = async (searchTerm: string | undefined) => {
-  if (searchTerm) {
-    const result = await Product.findOne({ name: searchTerm });
 
-    // const result = await Product.find({ $in: [{ $name: searchTerm }] });
-    // // Filter products based on search term
-    // // result = Product.filter(product =>
-    // //   product.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // // );
-    // result = Product.findIndex(product => console.log(product))
+  if (searchTerm) {
+    const result = await Product.find({ name: { $regex: searchTerm, $options: 'i' } });
     return {
       result,
       message: `Products matching search term '${searchTerm}' fetched successfully!`,
