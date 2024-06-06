@@ -6,9 +6,16 @@ const createOrder = async (req: Request, res: Response) => {
   try {
     const orderData = req.body;
     const zodValidationData = OrderValidationSchema.parse(orderData);
-    const { data, message } = await orderService.orderCreate(zodValidationData);
+    const { data, message, success } = await orderService.orderCreate(zodValidationData);
+    if (success === false) {
+      res.status(404).json({
+        success,
+        message,
+        data,
+      });
+    }
     res.status(200).json({
-      success: true,
+      success,
       message,
       data,
     });
