@@ -28,6 +28,13 @@ const getAllProduct = async (req: Request, res: Response) => {
     const searchTerm = req?.query?.searchTerm as string | undefined;
 
     const { result, message } = await productService.getAllProduct(searchTerm);
+    if (result.length <= 0) {
+      res.status(200).json({
+        success: true,
+        message: "Product not found",
+        data: result,
+      });
+    }
     res.status(200).json({
       success: true,
       message,

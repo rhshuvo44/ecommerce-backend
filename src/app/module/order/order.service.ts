@@ -19,9 +19,22 @@ const orderCreate = async (orderData: TOrders) => {
   }
 };
 // getAllOrder
-const getAllOrder = async () => {
-  const result = await Order.find();
-  return result;
+const getAllOrder = async (email: string | undefined) => {
+  if (email) {
+    const result = await Order.find({ email: { $regex: email } });
+    return {
+      data: result,
+      message: 'Orders fetched successfully for user email!',
+    }
+
+  } else {
+    const result = await Order.find();
+    return {
+      data: result,
+      message: 'Orders fetched successfully!',
+    }
+
+  }
 };
 
 export const orderService = {
